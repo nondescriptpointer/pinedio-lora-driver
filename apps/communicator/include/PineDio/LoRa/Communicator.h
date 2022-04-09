@@ -6,8 +6,9 @@ class PinedioLoraRadio;
 class Communicator {
 public:
   explicit Communicator(PineDio::LoRa::PinedioLoraRadio &radio);
-
+  ~Communicator();
   void Run();
+  void Stop();
 
 private:
   PineDio::LoRa::PinedioLoraRadio &radio;

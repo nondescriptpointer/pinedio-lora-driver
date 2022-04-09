@@ -12,7 +12,7 @@ public:
 
   virtual void Initialize();
   virtual void Send(std::vector<uint8_t> data);
-  virtual std::vector<uint8_t> Receive();
+  virtual std::vector<uint8_t> Receive(std::chrono::milliseconds timeout);
 private:
   SX126x& radio;
   bool dataReceived {false};

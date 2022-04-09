@@ -43,7 +43,7 @@ void PinedioLoraRadio::Initialize() {
 
 
 
-  static char* message = "Hello, I'm a Pinephone!";
+  static const char* message = "Hello, I'm a Pinephone!";
   auto s = strlen(message);
 
   SX126x::PacketParams_t packetParams;
@@ -63,9 +63,10 @@ void PinedioLoraRadio::Send(const std::vector<uint8_t> data) {
   transmitBuffer = data; //copy
 }
 
-std::vector<uint8_t> PinedioLoraRadio::Receive() {
-  std::cout << "[PinedioLoraRadio] Receive()" << std::endl;
+std::vector<uint8_t> PinedioLoraRadio::Receive(std::chrono::milliseconds timeout) {
   bool running = true;
+  auto startTime = std::chrono::steady_clock::now();
+  std::vector<uint8_t> buffer;
   while(running) {
     radio.ProcessIrqs();
 
@@ -87,13 +88,18 @@ std::vector<uint8_t> PinedioLoraRadio::Receive() {
     }
 
     if(dataReceived) {
+      buffer = receivedBuffer;
       break;
     }
+
+    if(std::chrono::steady_clock::now() - startTime > timeout)
+      break;
+
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
   }
 
   dataReceived = false;
-  return receivedBuffer; //copy
+  return buffer; //copy
 }
 
 void PinedioLoraRadio::OnDataReceived() {

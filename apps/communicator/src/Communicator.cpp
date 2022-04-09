@@ -17,6 +17,12 @@ Communicator::Communicator(PineDio::LoRa::PinedioLoraRadio &radio) : radio{radio
   receiveTask.reset(new std::thread([this](){Receive();}));
 }
 
+Communicator::~Communicator() {
+  running = false;
+  receiveTask->join();
+}
+
+
 void Communicator::Run() {
   running = true;
 
@@ -39,8 +45,10 @@ void Communicator::Run() {
 
 }
 void Communicator::Receive() {
-  while(true){
-    auto data = radio.Receive();
+  while(running){
+    auto data = radio.Receive(std::chrono::milliseconds{100});
+    if(data.empty())
+      continue;
     std::cout << "Data received on LoRa radio : " << std::endl;
     std::cout << "\tHEX: ";
     for(auto d : data) {
@@ -53,5 +61,9 @@ void Communicator::Receive() {
     }
     std::cout << std::endl;
   }
+}
+
+void Communicator::Stop() {
+  running = false;
 }
 

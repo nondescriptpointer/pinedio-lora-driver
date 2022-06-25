@@ -50,7 +50,7 @@ The implementation specific for the Pinephone is located in the class `PineDio::
 
 The implementation specific for the USB adapter is located in the class `PineDio::LoRa::UsbAdapter`. It uses the `spidev` API to access the SPI bus from the Linux userland.
 
-Both classes derive from `SX126x`, the generic driver from [this repo](https://github.com/YukiWorkshop/sx126x_driver).
+Both classes derive from `SX126x`, the generic driver from [this repo](https://github.com/SudoMaker/sx126x_driver).
 
 The generic abstraction is provided by the class `PineDio::LoRa::PinedioLoraRadio`, which takes a  reference to a `SX126x`-derived object (which can be either `PinephoneBackplate` or `UsbAdapter`).
 
@@ -89,7 +89,7 @@ The test application (usb-communicator and pinephone-communicator) are also in a
 This project is released under the terms of the **LGPLv3 license**.
 
 ## Acknowledgements
-This project is based on [this C++ SX126x driver](https://github.com/YukiWorkshop/sx126x_driver) from [YukiWorkshop](https://github.com/YukiWorkshop). 
+This project is based on [this C++ SX126x driver](https://github.com/SudoMaker/sx126x_driver) from [SudoMaker](https://github.com/SudoMaker). 
 
 The implementation of the driver for the USB adapter is possible thanks to [rogerjames99's](https://github.com/rogerjames99) [fork](https://github.com/rogerjames99/spi-ch341-usb) of the [spi-ch341-usb module](https://github.com/gschorcht/spi-ch341-usb) from [Gunar Schorcht](https://github.com/gschorcht).
 

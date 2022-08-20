@@ -1,3 +1,6 @@
+This is a fork of https://codeberg.org/JF002/pinedio-lora-driver
+Primary goal is to turn this into a library and link it with Rust.
+
 # PineDio LoRa drivers
 PineDio is the new LoRa-based product range at [Pine64](https://pine64.org). This project implements a C++ driver for the [LoRa USB adapter](https://wiki.pine64.org/wiki/Pinedio#USB_adapter) and the [Pinephone backplate](https://wiki.pine64.org/wiki/Pinedio#Pinephone_backplate).
 

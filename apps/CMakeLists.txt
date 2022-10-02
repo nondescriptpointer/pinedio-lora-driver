@@ -1,4 +1,5 @@
 add_subdirectory(communicator)
 add_subdirectory(pinephone-communicator)
+add_subdirectory(pinephone-service)
 add_subdirectory(usb-communicator)
 add_subdirectory(gpio)
